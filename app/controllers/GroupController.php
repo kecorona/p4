@@ -45,7 +45,8 @@ class GroupController extends \BaseController {
 	{
 		$form = new GroupForm();
 
-		$group = Group::findOrFail(Input::get('id'));
+		$id = Input::get('id');
+		$group = Group::findOrFail($id);
 		$url = URL::full();
 
 		if($form->isPosted())
@@ -53,8 +54,25 @@ class GroupController extends \BaseController {
 			if($form->isValidForEdit())
 			{
 				$group->name = Input::get('name');
+				$group->save();
+
+				$group->users()->sync(Input::get('user_id', []));
+				$group->resources()->sync(Input::get('resource_id', []));
 			}
+
+			return Redirect::to($url)->withInput([
+				'name'	=>	Input::get('name'),
+				'errors'	=>	$form->getErrors(),
+				'url'	=>	$url
+			]);
 		}
+
+		return View::make('group.edit', [
+			'form'	=>	$form,
+			'group'	=>	$group,
+			'users' =>	User::all(),
+			'resources'	=>	Resource::where('secure', true)->get()
+		]);
 	}
 
 	public function deleteAction()
@@ -111,12 +129,7 @@ class GroupController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		return View::make('group.edit', [
-			'form'	=>	$form,
-			'group'	=>	$group,
-			'users'	=>	User::all(),
-			'resources'	=>	Resource::where('secure', true)->get()
-		]);
+		//
 	}
 
 	/**

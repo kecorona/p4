@@ -16,48 +16,30 @@ Route::any('', [
 	'as' 	=>	'www.index.index',
 	'uses'	=>	'IndexController@indexAction'
 ]);
-Route::any('users.login', [
-	'as' => 'users.login',
-	'uses' => 'UserController@login'
-]);
 
-Route::any('users.profile', [
-	'as' => 'users.profile',
-	'uses' => 'UserController@profile'
-]);
-Route::any('users.create', [
-	'as' => 'users.create',
-	'uses' => 'UserController@create'
-]);
+Route::group(['before' => 'guest'], function() {
+	$resources = Resource::where('secure', false)->get();
 
-Route::any('users.request', [
-	'as' => 'users.request',
-	'uses' => 'UserController@request'
-	]);
+	foreach($resources as $resource)
+	{
+		Route::any($resource->pattern, [
+			'as' => $resource->name,
+			'uses' => $resource->target
+		]);
+	}
+});
 
-Route::any('users.reset.{token}', [
-	'as' => 'users.reset',
-	'uses' => 'UserController@reset'
-	]);
+Route::group(['before' => 'auth'], function() {
+	$resources = Resource::where('secure', true)->get();
 
-
-
-Route::any('users.logout', [
-	'as'	=>	'users.logout',
-	'uses'	=>	'UserController@logout'
-	]);
-
-Route::any('group.index', [
-	'as'	=>	'group.index',
-	'uses'	=>	'GroupController@indexAction'
-]);
-
-Route::any('group.delete', [
-	'as' => 'group.delete',
-	'uses' => 'GroupController@deleteAction'
-]);
-
-
+	foreach($resources as $resource)
+	{
+		Route::any($resource->pattern, [
+			'as' => $resoure->name,
+			'uses' => $resource->target
+		]);
+	}
+});
 
 Route::group([
 	'domain' => 'dev.p4.kristincorona.com'

@@ -37,14 +37,23 @@ Route::filter('auth', function()
 {
 	if (Auth::guest())
 	{
-		if (Request::ajax())
+		return Redirect::route('www.index.index');
+	}
+	else {
+		foreach(Auth::user()->groups as $group)
 		{
-			return Response::make('Unauthorized', 401);
+			foreach($group->resources as $resource)
+			{
+				$path = Route::getCurrentRoute()->getPath();
+
+				if($resource->pattern == $path)
+				{
+					return;
+				}
+			}
 		}
-		else
-		{
-			return Redirect::guest('users.login');
-		}
+
+		return Redirect::route('www.index.index');
 	}
 });
 
