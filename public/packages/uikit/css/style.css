@@ -1,0 +1,228 @@
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400|Philosopher:400,700,400italic|Quicksand|Voltaire);
+
+@font-face {
+	font-family: 'AvenirNextLTPro-MediumCn';
+	src: url('fonts/AvenirNextLTPro-MediumCn.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'AvenirNextLTPro-Demi';
+	src: url('fonts/AvenirNextLTPro-Demi.otf') format('opentype');
+}
+
+body {
+	font-family: 'AvenirNextLTPro-MediumCn', sans-serif;
+}
+
+h1 {
+  padding-top:10px;
+	font-family: 'AvenirNextLTPro-Demi', sans-serif;
+	font-size:3em;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+textarea {
+  overflow: auto;
+  /* 1 */
+
+}
+/********************
+      Components
+ ********************/
+.checkbox {
+  margin-left:5px;
+}
+
+
+/********************
+      Container
+ ********************/
+.uk-container{
+	max-width: 100% !important;
+    z-index: -9999;
+    padding:none;
+    margin:none;
+}
+
+.uk-footer {
+  margin-right:20px;
+  margin-top: 20px;
+
+}
+
+
+/********************
+      Grid
+ ********************/
+
+.uk-grid {
+	margin-top:10px !important;
+	padding-bottom: 10px !important;
+}
+
+/********************
+      Navigation
+ ********************/
+.nav-container {
+	border-bottom: 1px solid grey;
+	margin-top:5px;
+}
+.nav-brand {
+	padding-left:15px !important;
+}
+
+.uk-navbar-toggle {
+  float:right;
+}
+
+.uk-nav {
+	float:right;
+}
+
+.uk-nav li {
+	margin-left: 15px;
+	padding-top:1px;
+	display:inline-block;
+	float:left;  
+}
+
+
+
+.uk-nav li a {
+	font-family: 'AvenirNextLTPro-MediumCn';
+	text-transform: uppercase;
+	color:#4f4f4f;
+	font-size:1.3em;
+}
+
+.uk-nav li a:hover,
+.uk-nav li a:active
+.uk-nav li a:focus,
+.uk-nav li.uk-active a {
+	background:transparent;
+	color:#a41034;
+}
+
+.top-bg {
+  background-image:url('/../../assets/img/top_bg.png');
+  background-repeat: repeat-x;
+  height:70px;
+}
+
+.bottom-bg {
+  background-image:url('/../../assets/img/bottom_bg.png');
+  background-repeat:repeat-x;
+  max-height:70px;
+}
+
+.kc-margin {
+}
+  /********************
+        subnav
+   ********************/
+  .uk-subnav {
+  	padding:auto;
+  	margin:auto;
+  }
+/********************
+      Article
+ ********************/
+.uk-article-title {
+  font-family: 'Lato';
+}
+
+/********************
+      Form
+ ********************/
+.uk-form {
+	text-align:left;
+    padding-left:15px;
+}
+
+form #paragraph_count {
+  text-align: left;
+  padding-left:15px;
+}
+
+.label {
+	padding-left: 5px;
+}
+
+.uk-final-row {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.uk-form-label {
+	text-align: left;
+
+	text-transform: uppercase;
+}
+.uk-description-list-line {
+	text-align: left;
+	vertical-align: middle;
+}
+
+.uk-button {
+  color:#a41034;
+  font-weight: bolder;
+  text-align: center;
+  text-transform: uppercase;
+  font-size:1.2em;
+}
+
+.uk-icon-a4 {
+  color:#a41034;
+  padding-right:5px;
+}
+
+.kc-icon {
+  height:50px;
+  width:50px;
+  margin-bottom:20px;
+  margin-right: 15px;
+}
+
+.kc-copyright {
+  padding-top:10px;
+  font-weight: bold;
+  vertical-align: text-bottom;
+}
+
+.help-block {
+  float: left;
+  clear: left;
+}
+
+.form-group.has-error .help-block {
+  color: #ef7c61;
+}
+
+
+/********************
+     Text
+ ********************/
+.uk-header {
+  font-family: 'AvenirNextLTPro-MediumCn', sans-serif;
+  color:#a41034;
+  margin-top:20px;
+  margin-bottom:20px;
+  line-height:42px;
+}
+
+.uk-panel-header {
+  padding-left: 20px;
+  padding-bottom: none;
+}
+
+
+.uk-description-list > dt {
+	margin-left:auto;
+	margin-right:auto;
+
+}
+.uk-description-list > dd{
+	line-height:20px;
+  margin-bottom:15px;

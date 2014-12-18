@@ -24,11 +24,10 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('homestead'),
-
-));
+$env = $app->detectEnvironment([
+	"www"	=>	["dev.p4.kristincorona.com"],
+	"admin"	=>	["dev.admin.p4.kristincorona.com"]
+]);
 
 /*
 |--------------------------------------------------------------------------
