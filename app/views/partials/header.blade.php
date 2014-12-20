@@ -12,6 +12,8 @@
             @if(Auth::check())
                 <li><a href="{{{ URL::to('index') }}}">Logout</a></li>
             @else
+                <li><a href="{{ URL::to('index') }}">Home</a></li>
+                <li><a href="{{ URL::to('pages.projects') }}">Projects</a></li>
                 <li><a href="{{ URL::to('login') }}">Login</a></li>
                 
             @endif

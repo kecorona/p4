@@ -15,9 +15,9 @@
 Route::model('post', 'Post');
 Route::model('comment', 'Comment');
 
-/* User Routes */
-Route::any('/', ['uses' => 'IndexController@indexAction']);
+Route::resource('/', 'IndexController');
 
+/* User Routes */
 Route::any('post.index', [
 	'as' 	=>	'post.index',
 	'uses'	=>	'PostController@indexAction'
@@ -138,35 +138,3 @@ Route::group(['before' => 'auth'], function() {
 });
 
 
-
-Route::group([
-	'domain' => 'dev.p4.kristincorona.com'
-], function() {
-	Route::any('/about', function() {
-		return "Client facing website.";
-	});
-});
-
-Route::group([
-	'domain' => 'dev.admin.p4.kristincorona.com'
-], function() {
-	Route::any('/about', function() {
-		return "Admin facing website.";
-	});
-});
-
-Route::group([
-	'domain' => 'dev.{sub}.kristincorona.com'
-], function () {
-	Route::any('/whoami', function($sub) {
-		return "You are in the '" . $sub . "' sub-domain.";
-	});
-});
-
-Route::group([
-	'domain' => 'dev.{sub}.{sub1}.kristincorona.com'
-], function() {
-	Route::any('/whoami', function($sub, $sub1) {
-		return "You are in the '" . $sub . $sub1 . "' sub-domain.";
-	});
-});
