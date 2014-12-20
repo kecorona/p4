@@ -37,24 +37,9 @@ Route::filter('auth', function()
 {
 	if (Auth::guest())
 	{
-		return Redirect::route('www.index.index');
+		return View::make('post.index');
 	}
-	else {
-		foreach(Auth::user()->groups as $group)
-		{
-			foreach($group->resources as $resource)
-			{
-				$path = Route::getCurrentRoute()->getPath();
-
-				if($resource->pattern == $path)
-				{
-					return;
-				}
-			}
-		}
-
-		return Redirect::route('www.index.index');
-	}
+	
 });
 
 

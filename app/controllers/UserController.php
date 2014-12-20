@@ -11,7 +11,7 @@ class UserController extends \BaseController {
 				$credentials = $this->getLoginCredentials();
 
 				if(Auth::attempt($credentials)) {
-					return Redirect::route('users.profile');
+					return Redirect::route('admin.index.dash');
 				}
 
 				return Redirect::back()->withErrors ([
@@ -22,9 +22,10 @@ class UserController extends \BaseController {
 					->withInput()
 					->withErrors($validator);
 			}
+			return View::make('pages.login');
 		}
 
-		return View::make('users.login');
+		
 	}
 
 	protected function isPostRequest()
@@ -76,11 +77,6 @@ class UserController extends \BaseController {
 		return $response === Password::INVALID_USER;
 	}
 
-	public function profile()
-	{
-		return View::make('users.profile');
-	}
-
 	public function reset($token)
 	{
 		if($this->isPostRequest()) {
@@ -116,7 +112,7 @@ class UserController extends \BaseController {
 	{
 		Auth::logout();
 
-		return Redirect::route('users.login');
+		return Redirect::route('pages.login');
 	}
 	/**
 	 * Display a listing of users
@@ -127,7 +123,7 @@ class UserController extends \BaseController {
 	{
 		$users = $this->users->all();
 
-		return View::make('users.index', compact('users'));
+		return View::make('admin.index.dash', compact('admin.index.dash'));
 	}
 
 	/**
@@ -135,10 +131,6 @@ class UserController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-		return View::make('users.create');
-	}
 
 	/**
 	 * Store a newly created user in storage.

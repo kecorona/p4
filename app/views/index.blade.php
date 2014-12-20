@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.master')
 
 @section('content')
 	<div class="uk-grid" data-uk-grid-margin>

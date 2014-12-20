@@ -7,57 +7,51 @@ class ResourceSeeder extends DatabaseSeeder {
 		$resources = [
 			[
 				'pattern'	=>	'login',
-				'name'		=>	'user.login',
-				'target'	=>	'UserController@loginAction',
+				'name'		=>	'login',
+				'target'	=>	'IndexController@login',
 				'secure'	=>	false
 			],
 			[
 				'pattern'	=>	'request',
-				'name'		=>	'user.request',
+				'name'		=>	'users.request',
 				'target'	=>	'UserController@requestAction',
 				'secure'	=>	false
 			],
 			[
 				'pattern'	=>	'reset',
-				'name'		=>	'user.reset',
+				'name'		=>	'users.reset',
 				'target'	=>	'UserController@resetAction',
 				'secure'	=>	false
 			],
 			[
 				'pattern'	=>	'logout',
-				'name'		=>	'user.logout',
-				'target'	=>	'UserController@logoutAction',
-				'secure'	=>	true
-			],
-			[
-				'pattern'	=>	'profile',
-				'name'		=>	'user.profile',
-				'target'	=>	'UserController@profileAction',
+				'name'		=>	'pages.logout',
+				'target'	=>	'IndexController@logout',
 				'secure'	=>	true
 			],
 
 			[
-				'pattern'	=>	'group.index',
-				'name'		=>	'group.index',
-				'target'	=>	'GroupController@indexAction',
+				'pattern'	=>	'post.index',
+				'name'		=>	'post.index',
+				'target'	=>	'PostController@indexPost',
 				'secure'	=>	true
 			],
 			[
-				'pattern'	=>	'group.add',
-				'name'		=>	'group.add',
-				'target'	=>	'GroupController@addAction',
+				'pattern'	=>	'post.create',
+				'name'		=>	'post.create',
+				'target'	=>	'PostController@createPost',
 				'secure'	=>	true
 			],
 			[
-				'pattern'	=>	'group.edit',
-				'name'		=>	'group.edit',
-				'target'	=>	'GroupController@editAction',
+				'pattern'	=>	'post.edit',
+				'name'		=>	'post.edit',
+				'target'	=>	'PostController@editPost',
 				'secure'	=>	true
 			],
 			[
-				'pattern'	=>	'group.delete',
-				'name'		=>	'group.delete',
-				'target'	=>	'GroupController@deleteAction',
+				'pattern'	=>	'post.delete',
+				'name'		=>	'post.delete',
+				'target'	=>	'GroupController@deletePost',
 				'secure'	=>	true
 			]
 		];

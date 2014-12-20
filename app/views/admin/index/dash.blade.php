@@ -9,12 +9,12 @@
 		<div class="uk-width-medium-1-2">
 			<div class="uk-panel uk-panel-box uk-panel-secondary">
 				<h3 class="uk-panel-title">Panel 1</h3>
-				<a href="{{ action('PostController@createPost') }}" class="btn btn-info">Create New Post</a>
+				<a href="{{ action('UserController@create') }}" class="btn btn-info">Add New user</a>
 			
 				<table class="uk-table">
 				<thead>
 					<tr>
-						<th>Title</th>
+						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Email</th>
 					</tr>

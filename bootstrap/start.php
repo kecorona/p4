@@ -25,6 +25,7 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment([
+	#require __DIR__ . "/.../app/config/environment.php"
 	"www"	=>	["dev.p4.kristincorona.com"],
 	"admin"	=>	["dev.admin.p4.kristincorona.com"]
 ]);

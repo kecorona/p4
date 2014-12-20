@@ -60,4 +60,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Group')->withTimestamps();
 	}
+
+	public function posts()
+	{
+		return $this-has_many('Post');
+	}
 }

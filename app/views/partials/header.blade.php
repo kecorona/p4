@@ -10,10 +10,10 @@
         <nav class="uk-hidden-small">
             <ul class="uk-nav">
             @if(Auth::check())
-                <li {{ (Request::is('/') ? ' class="uk-active"' : '') }}><a href="{{{ URL::route('users.logout') }}}">Logout</a></li>
-                <li {{ (Request::is('users.profile') ? ' class="uk-active"' : '') }}><a href="{{{ URL::to('users.register') }}}">Profile</a></li>
+                <li><a href="{{{ URL::to('index') }}}">Logout</a></li>
             @else
-                <li {{ (Request::is('users.login') ? ' class="uk-active"' : '') }}><a href="{{ URL::to('users.login') }}">Login</a></li>
+                <li><a href="{{ URL::to('login') }}">Login</a></li>
+                
             @endif
             </ul>
         </nav>
