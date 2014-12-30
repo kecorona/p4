@@ -7,10 +7,10 @@
 </head>
 
 <body>
-
+<div style="background-image: url('packages/img/top_bg.png'); height:120px; background-repeat: repeat-x">
 	@include('partials.header')
+	</div>
 
-	<div class="uk-container">
 		@if(Session::has('message'))
 			<div class="flash alert">
 				<p>{{ Session::get('message') }}</p>
@@ -18,7 +18,6 @@
 		@endif
 
 		@yield('content')
-
 	</div>
 
 </body>

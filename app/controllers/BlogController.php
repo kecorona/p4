@@ -19,7 +19,7 @@ class BlogController extends \BaseController {
 		$posts = Post::orderBy('id', 'desc')->paginate(10);
 		$posts->getEnvironment()->setViewName('pagination::simple');
 		$this->layout->title = 'Home | WLA Blog';
-		$this->layout->main = View::make('post.index')
+		$this->layout->main = View::make('/')
 					 ->nest('content', 'index', compact('posts'));
 	}
 
@@ -31,7 +31,7 @@ class BlogController extends \BaseController {
 		$posts->getEnvironment()->setViewName('pagination::slider');
 		$posts->appends(['s'=>$searchTerm]);
 		$this->layout->main = View::make('post.index')
-					 ->nest('content', 'index',($posts->isEmpty()) ? ['notFound' = true] : compact('posts'));
+					 ->nest('content', 'index', ($posts->isEmpty()) ? ['notFound' == true] : compact('posts'));
 	}
 
 	/**
@@ -43,7 +43,7 @@ class BlogController extends \BaseController {
 	public function getLogin()
 	{
 		$this->layout->title='login';
-		$this->layout->main = View::make('admin.login')
+		$this->layout->main = View::make('pages.login');
 	}
 
 	public function postLogin()
@@ -61,7 +61,7 @@ class BlogController extends \BaseController {
 		if($validator->passes())
 		{
 			if(Auth::attempt($credentials))
-				return Redirect::to('admin.index.dash');
+				return Redirect::to('admin.index');
 			return Redirect::back()->withInput()->with('failure', 'username or password is invalid');
 		}
 		else
@@ -73,7 +73,7 @@ class BlogController extends \BaseController {
 	public function getLogout()
 	{
 		Auth::logout();
-		return Redirect::to('www.index.index')
+		return Redirect::to('index');
 	}
 
 }

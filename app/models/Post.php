@@ -11,8 +11,10 @@ class Post extends \Eloquent {
 		'deleted_at'
 	];
 
-	public function user()
+	protected $fillable = ['title', 'content'];
+
+	public function Author()
 	{
-		return $this->belongsToMany('User')->withTimestamps();
+		return $this->belongsTo('User', 'author_id');
 	}
 }

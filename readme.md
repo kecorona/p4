@@ -12,6 +12,9 @@ Future functionality will allow guest users to comment on posts, which will pend
 
 <a href="http://github.com/kecorona/p4">GitHub</a>
 
+## Frameworks used
+<a href="http://getuikit.com">UI Kit – front-end development framework for styling</a>
+
 
 ## Packages used
 

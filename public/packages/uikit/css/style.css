@@ -17,10 +17,16 @@ body {
 
 h1 {
   padding-top:10px;
-	font-family: 'AvenirNextLTPro-Demi', sans-serif;
+	font-family: 'Lato' !important;
 	font-size:3em;
-	text-transform: uppercase;
-	vertical-align: middle;
+	text-transform: uppercase !important;
+	text-align: center;
+}
+
+h2 {
+  padding-top:25px;
+  font-family: 'AvenirNextLTPro-Demi', sans-serif;
+  font-size:;
 }
 
 textarea {
@@ -68,9 +74,11 @@ textarea {
 .nav-container {
 	border-bottom: 1px solid grey;
 	margin-top:5px;
+  margin-left:50px;
+  margin-right: 50px;
 }
 .nav-brand {
-	padding-left:15px !important;
+	padding-left:10px !important;
 }
 
 .uk-navbar-toggle {
@@ -81,20 +89,17 @@ textarea {
 	float:right;
 }
 
-.uk-nav li {
-	margin-left: 15px;
-	padding-top:1px;
-	display:inline-block;
-	float:left;  
+.uk-nav li a{
+	padding-right: 15px;
+  margin-top:75px;
+ 
 }
-
-
 
 .uk-nav li a {
 	font-family: 'AvenirNextLTPro-MediumCn';
 	text-transform: uppercase;
-	color:#4f4f4f;
-	font-size:1.3em;
+	color: #E12C5F;
+	font-size:1.5em;
 }
 
 .uk-nav li a:hover,
@@ -102,8 +107,10 @@ textarea {
 .uk-nav li a:focus,
 .uk-nav li.uk-active a {
 	background:transparent;
-	color:#a41034;
+	color:#E12C5F;
 }
+
+
 
 .top-bg {
   background-image:url('/../../assets/img/top_bg.png');
@@ -129,21 +136,40 @@ textarea {
 /********************
       Article
  ********************/
+.uk-article {
+  margin-left:50px;
+  margin-right:50px;
+}
+
 .uk-article-title {
+  text-align: left;
   font-family: 'Lato';
+}
+
+.uk-article-content {
+  max-width: 900px;
 }
 
 /********************
       Form
  ********************/
+.kc-form-title {
+  padding:20px;
+  font-family: 'Lato' !important;
+  font-size:3em;
+  color: #ff005d;
+  text-transform: uppercase !important;
+  text-align: center;
+}
+.form-align {
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #d4d4d4;
+
+}
 .uk-form {
 	text-align:left;
     padding-left:15px;
-}
-
-form #paragraph_count {
-  text-align: left;
-  padding-left:15px;
 }
 
 .label {
@@ -156,9 +182,9 @@ form #paragraph_count {
 }
 
 .uk-form-label {
-	text-align: left;
-
+	font-size: 1.7em;
 	text-transform: uppercase;
+  padding-right: 10px;
 }
 .uk-description-list-line {
 	text-align: left;
@@ -198,6 +224,14 @@ form #paragraph_count {
 
 .form-group.has-error .help-block {
   color: #ef7c61;
+}
+
+/********************
+    Panel
+*********************/
+.uk-panel {
+  margin-right:50px;
+  margin-left:50px;
 }
 
 

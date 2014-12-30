@@ -35,17 +35,25 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest())
-	{
-		return View::make('post.index');
-	}
-	
+	if (!Sentry::check())
+		return Redirect::guest('login');
 });
 
 
-Route::filter('auth.basic', function()
+Route::filter('admin', function()
 {
-	return Auth::basic();
+	$user = Sentry::getUser();
+	$admin = Sentry::findGroupByName('Admins');
+
+	if(!$user->inGroup($admin))
+		return Redirect::to('login');
+});
+
+Route::filter('standardUser', function() {
+	$user = Sentry::getUser();
+	$users = Sentry::findGroupByName('Users');
+
+	if(!$user->inGroup($users)) return Redirect::to('login');
 });
 
 /*
@@ -80,5 +88,40 @@ Route::filter('csrf', function()
 	if (Session::token() !== Input::get('_token'))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
+	}
+});
+
+/*
+|--------------------------------------------------------------------------
+| Custom Filters
+|--------------------------------------------------------------------------
+*/
+
+Route::filter('user', function($route,$request) {
+	if(Sentry::check()) {
+		// user is logged in
+	} else {
+		return Redirect::route('index')
+			->with('error', 'You must be logged in');
+	}
+});
+
+Route::filter('is_guest', function($route, $request) {
+	if(!Sentry::check()) {
+		// user is a guest user
+	} else {
+		return Redirect::route('index')
+			->with('error', 'You are already logged in');
+	}
+});
+
+Route::filter('access_check', function($route,$request) {
+	if(Sentry::check()) {
+		if(Sentry::getUser()->hasAccess($right)) {
+			// logged in with authorized access rights
+		} else {
+			return Redirect::route('index')
+				->with('error', 'Authorization denied');
+		}
 	}
 });

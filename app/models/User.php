@@ -5,7 +5,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Cartalyst\Sentry\Users\Eloquent\User {
 
 	use UserTrait, RemindableTrait;
 
@@ -25,18 +25,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $guarded = array('id');
 
-	protected $fillable = array('first_name', 'last_name');
+	protected $fillable = array('email', 'password', 'password_confirm', 'first_name', 'last_name');
 
 	public static $rules = array(
-		'first_name' => 'required|min:1',
-		'email' => 'required|email'
+			'email' => 'required|email|exists:users,email',
+			'password' => 'required|min:7'
 	);
 
-	public function getAuthId() {
+	public function __construct()
+	{
+	    $this->setHasher(new \Cartalyst\Sentry\Hashing\NativeHasher);
+	}
+
+	public function getAuthIdentifier() {
 		return $this->getKey();
 	}
 
-	public function getAuthPw() {
+	public function getAuthPassword() {
 		return $this->password;
 	}
 
@@ -54,11 +59,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getReminderEmail() {
 		return $this->email;
-	}
-
-	public function groups()
-	{
-		return $this->belongsToMany('Group')->withTimestamps();
 	}
 
 	public function posts()

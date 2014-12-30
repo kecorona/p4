@@ -7,8 +7,7 @@
 
         <article class="uk-article">
 
-            <h1 class="uk-article-title">
-                <a href="layouts_post.html">Article Heading</a>
+            <h1 class="uk-article-title">Projects
             </h1>
 
             <p class="uk-article-meta">Written by Author on 12 April 2013. Posted in <a href="#">Blog</a></p>

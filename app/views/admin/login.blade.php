@@ -7,9 +7,8 @@
 
     	<form class="uk-panel uk-panel-box uk-form">
                     
-	{{ Form::open()}}
+	{{ Form::open(['route' => 'login', 'method' => 'POST'])}}
 
-		{{ $errors->first('password') }}<br />
 		<div class="uk-form-row">
 			{{ Form::label('username', 'Username', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'username') }}
 			{{ Form::text('username') }}
@@ -19,6 +18,7 @@
 			{{ Form::label('password', 'Password'),  ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'password'] }}
 			{{ Form::password('password') }}
 		</div>
+		
 		<div class="uk-form-row">
 			{{ Form::submit('login'), ['class' => 'uk-width-1-1 uk-button uk-button-primary uk-button-large'] }}
 		</div>

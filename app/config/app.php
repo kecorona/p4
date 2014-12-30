@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'p4.kristincorona.com',
+	'url' => 'http://localhost',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => '5UqZ9Wl6fxpEbjxs4y6cZ4K0V3djGT0Q',
+	'key' => 'Z61Y4IcuL1jN4D95DfJJXk9DKRzQf75A',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -121,10 +121,9 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Way\Generators\GeneratorsServiceProvider',
-		'Cartalyst\Sentry\SentryServiceProvider',
-		'p4\Providers\UserServiceProvider',
-		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+			'Way\Generators\GeneratorsServiceProvider',
+			'Cartalyst\Sentry\SentryServiceProvider',
+			'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 	),
 
 	/*

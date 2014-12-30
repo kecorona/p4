@@ -1,39 +1,28 @@
 <?php
 
-class IndexController extends BaseController {
+class IndexController extends \BaseController {
 
 	public function __construct()
 	{
-		if(Request::is('index'))
+		if(Request::is(''))
 		{
 			$this->layout = 'layouts.master';
 		}
 	}
 
-	public function login()
+	public function index()
 	{
-		if($this->isPostRequest()) {
-			$validator = $this->getLoginValidator();
+		return View::make('index');
+	}
 
-			if($validator->passes()) {
-				$credentials = $this->getLoginCredentials();
+	public function getProjects()
+	{
+		return View::make('pages.projects');
+	}
 
-				if(Auth::attempt($credentials)) {
-					return Redirect::route('admin.login');
-				}
-
-				return Redirect::back()->withErrors ([
-					'password' => ['Credentials invalid.']
-				]);
-			} else {
-				return Redirect::back()
-					->withInput()
-					->withErrors($validator);
-			}
-			return View::make('admin.login');
-		}
-
-		
+	public function getLogin()
+	{
+		return View::make('pages.login');	
 	}
 
 	protected function isPostRequest()
@@ -57,8 +46,5 @@ class IndexController extends BaseController {
 		];
 	}
 
-	public function indexAction()
-	{
-		return View::make('index');
-	}
+	
 }

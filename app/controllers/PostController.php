@@ -8,13 +8,26 @@ class PostController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function indexPost()
+	public function getIndex()
 	{
-		$posts = Post::order_by('id', 'desc')->paginate(10);
-		$this->layout->title = 'Posts';
-		$this->layout->main = View::make('post.index')->nest('content', 'post.index', compact('posts'));
+		$posts = Post::with('Author')->orderBy('id', 'DESC')->get();
+		return View::make('index')->with('posts', $posts);
+	}
 
-		return View::make('post.index')->with('post', $posts);
+	public function getAdmin()
+	{
+		return View::make('add_post');
+	}
+
+	public function addPost()
+	{
+		Post::create([
+			'title' => Input::get('title'),
+			'content' =>Input::get('content'),
+			'author_id' => Auth::user()->id
+		]);
+
+		return Redirect::route('index');
 	}
 
 	/**
@@ -28,7 +41,7 @@ class PostController extends \BaseController {
 	{
 		$comments = $post->comments()->where('approved', '=', 1)->get();
 		$this->layout->title = $post->title;
-		$this->layout->main = View::make('www.index.posts')->nest('content', 'post.details', compact('post', 'comments'));
+		$this->layout->main = View::make('post.index')->nest('content', 'post.show', compact('post', 'comments'));
 
 	}
 
@@ -87,20 +100,18 @@ class PostController extends \BaseController {
 			'title' => 'required',
 			'content' => 'required'
 		];
-		$valid = Validator::make($data, $rules)
+		$valid = Validator::make($data, $rules);
+		if($valid->passes())
 		{
-			if($valid->passes())
-			{
-				$post = new Post($post);
-				$post = save();
-				return Redirect::to('admin.index.dash')->with('success', 'Post sucessfully saved');
-			}
-			else
-			{
-				return Redirect::back()->withErrors($valid)->withInput();
-			}
+			$post = new Post($post);
+			$post = save();
+			return Redirect::to('admin.index')->with('success', 'Post sucessfully saved');
 		}
-	}	
+		else
+		{
+			return Redirect::back()->withErrors($valid)->withInput();
+		}
+	}
 
 	/**
 	 * Update the specified resource in storage.
@@ -111,7 +122,7 @@ class PostController extends \BaseController {
 	 */
 	public function updatePost(Post $post)
 	{
-		$data [
+		$data = [
 			'title' => Input::get('title'),
 			'content' => Input::get('content'),
 			'slug' => Input::get('slug')

@@ -2,16 +2,29 @@
 
 class UserController extends \BaseController {
 
-	public function login()
+	public function __construct()
 	{
-		if($this->isPostRequest()) {
+		parent::__construct();
+
+		$this->filter('before', 'auth');
+	}
+
+	public function loginAction()
+	{
+		Auth::attempt([
+			'email' => Input::get('email'),
+			'password' => Input::get('password')
+		]);
+
+		return Redirect::route('create_post');
+		/*if($this->isPostRequest()) {
 			$validator = $this->getLoginValidator();
 
 			if($validator->passes()) {
 				$credentials = $this->getLoginCredentials();
 
 				if(Auth::attempt($credentials)) {
-					return Redirect::route('admin.index.dash');
+					return Redirect::route('admin.index');
 				}
 
 				return Redirect::back()->withErrors ([
@@ -22,10 +35,7 @@ class UserController extends \BaseController {
 					->withInput()
 					->withErrors($validator);
 			}
-			return View::make('pages.login');
-		}
-
-		
+			return View::make('pages.login');*/		
 	}
 
 	protected function isPostRequest()
@@ -123,7 +133,7 @@ class UserController extends \BaseController {
 	{
 		$users = $this->users->all();
 
-		return View::make('admin.index.dash', compact('admin.index.dash'));
+		return View::make('users.index', compact('index'));
 	}
 
 	/**

@@ -7,11 +7,11 @@ class UserSeeder extends DatabaseSeeder {
 		DB::table('users')->delete();
 
 		User::create([
-			'first_name' => 'web',
-			'last_name' => 'master',
-			'email' => 'webmaster@wlakids.org',
-			'username' => 'webmaster',
-			'password' => Hash::make('password'),
+			'first_name' => 'Kurt',
+			'last_name' => 'Vonnegut',
+			'email' => 'kvonnegut@wearsunscreen.com',
+			'username' => 'kvonnegut',
+			'password' => Hash::make('user'),
 		]);
 		
 	}

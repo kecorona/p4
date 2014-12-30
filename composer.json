@@ -7,19 +7,21 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-ide-helper": "~1.11",
-		"cartalyst/sentry": "2.1.*",
-		"kriswallsmith/assetic": "1.2.*@dev",
-		"toopay/assetic-minifier":"dev-master",
-		"jasonlewis/resource-watcher":"dev-master"
+		"cartalyst/sentry": "2.1.*"
 		
 	},
 	"require-dev": {
 	    "way/generators": "~2.0",
-	    "behat/behat": "~3.0",
 	    "phpspec/phpspec": "~2.0",
 	    "phpunit/phpunit": "~4.1",
 	    "mockery/mockery": "dev-master"
 	},
+	"repositories": [
+	    {
+	        "type": "composer",
+	        "url": "https://packages.cartalyst.com"
+	    }
+	],
 	"autoload": {
 		"psr-0": {
 			"p4": "app/src"
