@@ -14,7 +14,7 @@
                 <li {{ (Request::is('/') ? ' class="uk-active"' : '') }}><a href="{{{ URL::route('pages.logout') }}}">Logout</a></li>
                 <li {{ (Request::is('users.profile') ? ' class="uk-active"' : '') }}><a href="{{{ URL::to('users.register') }}}">Profile</a></li>
             @else
-                <li {{ (Request::is('login') ? ' class="uk-active"' : '') }}><a href="{{ URL::to('pages.login') }}">Login</a></li>
+                <li {{ (Request::is('login') ? ' class="uk-active"' : '') }}><a href="{{ URL::to('login') }}">Login</a></li>
             @endif
             </ul>
         </nav>

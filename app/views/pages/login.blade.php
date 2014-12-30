@@ -7,18 +7,30 @@
 
     	<form class="uk-panel uk-panel-box uk-form">
                     
-		{{ Form::open()}}
-
-			{{ $errors->first('password') }}<br />
+		{{ Form::open(['route' => 'login', 'method' => 'POST']) }}
+		{{ Form::hidden('_token', 'csrf_token()')}}
+			
 			<div class="uk-form-row">
-				{{ Form::label('username', 'Username', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'username']) }}
-				{{ Form::text('username') }}
+
+				{{ $errors->first('email', 'error') }}
+				{{ Form::label('email', 'Email', ['class' => 'uk-width-1-1 uk-form-large']) }}
+				{{ Form::email('email') }}
+				{{ $errors->first('email', '<span>:message</span') }}
 			</div>
 
 			<div class="uk-form-row">
-				{{ Form::label('password', 'Password',  ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'password']) }}
+				{{ $errors->first('password', 'error') }}
+				{{ Form::label('password', 'Password',  ['class' => 'uk-width-1-1 uk-form-large']) }}
 				{{ Form::password('password') }}
+				{{ $errors->first('password', '<span>:message</span') }}
 			</div>
+
+			<div class="uk-form-row">
+				{{ Form::checkbox('remember-me', 1) }}
+			</div>
+
+			<hr>
+			
 			<div class="uk-form-row">
 				{{ Form::submit('login', ['class' => 'uk-width-1-1 uk-button uk-button-primary uk-button-large']) }}
 			</div>

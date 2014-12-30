@@ -3,59 +3,67 @@
 class AuthController extends \BaseController {
 
 
-	public function getSignup()
-	{
-		return View::make('pages.signup')->with('title', 'Sign Up');
-	}
 	
 	public function getLogin()
 	{
+		if(Sentry::check())
+		{
+			return Redirect::route('index');
+		}
 		return View::make('pages.login');
 	}
 
 	public function postLogin()
 	{
-
-		$validation = Validator::make(Input::all(), User::$login_rules);
-
-		if($validation->fails()) {
-			return Redirect::route('index')->withInput(Input::except('password'))
-										   ->with('topError', $validation->errors()->first());
-		} else {
-			
-			try{
-				$credentials = [
-					'email' => Input::get('email'),
-					'password' => Input::get('password'),
-				];
-
-				$user = Sentry::authenticate($credentials, false);
-
-				return Redirect::route('index')->with('success', 'Logged in');
-			} catch(Cartalyst\Sentry\Users\LoginRequiredException $e) {
-				return Redirect::route('index')->withInput(Input::except('password'))
-											   ->with('topError', 'Login field is required');
-			} catch(Cartalyst\Sentry\Users\PasswordRequiredException $e) {
-				return Redirect::route('index')->withInput(Input::except('password'))
-											   ->with('topError', 'Password field is required');
-			} catch(Cartalyst\Sentry\Users\WrongPasswordException $e) {
-				return Redirect::route('index');
-			}
-		if(Auth::attempt($credentials))
-		{
-			return "Logged in";
-		}
-		else
-		{
-			return Redirect::back()->with_input();
-		}
-	}
+        $input = array(
+            'email' => \Input::get('email'),
+            'password' => \Input::get('password'),
+        );
+ 
+        $rules = array (
+            'email' => 'required|email',
+            'password' => 'required'
+        );
+ 
+        $validator = Validator::make($input, $rules);        
+        if ( $validator->fails() )
+        {
+            if(Request::ajax())
+            {
+                return Response::json(['success' => false, 'errors' => $validator->getMessageBag()->toArray()]);
+            } else{
+                return Redirect::back()->withInput()->withErrors($validator);
+            }
+ 
+        } else {
+            try
+                {
+                    $user = Sentry::getUserProvider()->findByLogin(\Input::get('email'));
+                    $throttle = Sentry::getThrottleProvider()->findByUserId($user->id);
+                    $throttle->check();
+                            $credentials = ['email' => \Input::get('email'), 'password' => \Input::get('password')];
+                    $user = Sentry::authenticate($credentials);
+                } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+                  return Response::json(['success' => false,'errors' => ['login' => ['Invalid username or password.']], 400]);
+                } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
+                    return Response::json(['success' => false,'errors' => ['login' => ['You have not yet activated this account.']], 400]);
+                }
+                catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e) {
+                    $time = $throttle->getSuspensionTime();
+                    return Response::json(['success' => false,'errors' => ['login' => ['Your account has been suspended for $time minutes.']], 400]);
+                                } catch (Cartalyst\Sentry\Throttling\UserBannedException $e) {
+                  return Response::json(['success' => false,'errors' => ['login' => ['You have been banned.']], 400]);
+                }
+                return Response::json(['success' => true], 200);
+        }
+ 
+    }
 
 	public function getLogout()
 	{
-		Auth::logout();
+		Sentry::logout();
 
-		return Redirect::to('');
+		return Redirect::to('index');
 	}
 	/**
 	 * Display a listing of the resource.

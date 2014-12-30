@@ -9,9 +9,9 @@ class UserController extends \BaseController {
 		$this->filter('before', 'auth');
 	}
 
-	public function loginAction()
+	public function getLogin()
 	{
-		Auth::attempt([
+		Sentry::attempt([
 			'email' => Input::get('email'),
 			'password' => Input::get('password')
 		]);

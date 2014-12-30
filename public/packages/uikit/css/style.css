@@ -13,6 +13,7 @@
 
 body {
 	font-family: 'AvenirNextLTPro-MediumCn', sans-serif;
+  font-size: 1.3em;
 }
 
 h1 {
@@ -109,6 +110,17 @@ textarea {
 	background:transparent;
 	color:#E12C5F;
 }
+
+.uk-list li {
+  padding-top:5px;
+  padding-bottom: 5px
+}
+
+.uk-list li a {
+  color:#29abe0 !important;
+  font-size: 1.1em;
+}
+
 
 
 
@@ -232,6 +244,16 @@ textarea {
 .uk-panel {
   margin-right:50px;
   margin-left:50px;
+}
+
+.uk-panel-title {
+  font-family: 'Lato';
+  font-weight: bolder;
+  font-size: 1.2em !important;
+}
+
+.uk-panel-first {
+  margin-top:20px;
 }
 
 

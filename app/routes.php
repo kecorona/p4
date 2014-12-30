@@ -25,10 +25,8 @@ Route::get('create', function()
 });
 
 // Auth resources
-Route::get('signup', ['as'=>'signup_form', 'is_guest', 'uses'=>'AuthController@getSignup']);
-Route::post('signup', ['as'=>'postSignupForm', 'before'=>'csrf|is_guest', 'uses' => 'AuthController@getSignup']);
-Route::post('login', ['as' => 'login', 'before' => 'csrf|is_guest', 
-	'uses' => 'AuthController@postLogin']);
+Route::get('login', ['as'=>'login', 'uses'=>'AuthController@getLogin']);
+Route::post('login', ['as' => 'login', 'uses' => 'AuthController@postLogin']);
 Route::get('logout', ['as' => 'logout', 'before' => 'user', 'uses' => 'AuthController@getLogout']);
 
 // Blog resources

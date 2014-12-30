@@ -29,17 +29,17 @@
     </div>
 
     <div class="uk-width-medium-1-3">
-        <div class="uk-panel uk-text-center">
-            <img class="uk-border-circle" width="120" height="120" src="">
-            <h3>Author</h3>
+        <!--div class="uk-panel uk-text-center">
+            <img class="uk-border-square" width="120" height="120" src="packages/img/user_large.jpg">
+            <h3>Author Name</h3>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut.
             </p>
-        </div>
+        </div-->
 
-        <div class="uk-panel">
+        <div class="uk-panel uk-panel-first">
             <h3 class="uk-panel-title">Categories</h3>
-            <ul class="uk-list uk-list-line">
+            <ul class="uk-list">
                 <li><a href="#">Projects</a></li>
                 <li><a href="#">News</a></li>
                 <li><a href="#">Events</a></li>
@@ -48,7 +48,7 @@
 
         <div class="uk-panel">
             <h3 class="uk-panel-title">Archives</h3>
-            <ul class="uk-list uk-list-line">
+            <ul class="uk-list">
                 <li><a href="#">2014</a></li>
                 <li><a href="#">2013</a></li>
                 <li><a href="#">2012</a></li>

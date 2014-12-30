@@ -26,7 +26,17 @@ Future functionality will allow guest users to comment on posts, which will pend
 
 ## Other Resources
 
-<a href="https://https://leanpub.com/codebright">Code Bright <small>by Dayle Rees</small></a>
+<a href="https://leanpub.com/codebright">Code Bright <small>by Dayle Rees</small></a>
+
+<a href="http://laravel.com/docs/4.2">Laravel Documentation</a>
+
+<a href="http://cheats.jesse-obrien.ca/">Laravel Cheat Sheet</a>
+
+<a href="http://stackoverflow.com">Stack Overflow – the advil to most headaches</a>
+
+<a href="http://laravel.io/">laravel.io</a>
+
+<a href="http://leanpub.com/laravel4cookbook">Laravel 4 Cookbook – practical application development and design</a>
 
 <a href="https://www.packtpub.com/web-development/laravel-application-development-blueprints">Laravel Application Development Blueprints</a>
 
