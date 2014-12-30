@@ -47,11 +47,11 @@ return array(
 	'connections' => array(
 
 		'mysql' => array(
-			'host'		=> 'localhost',
+			'host'		=> '104.131.1.7',
 			'driver'    => 'mysql',
 			'database'  => 'wla',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'Sw0rdf!sh',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
