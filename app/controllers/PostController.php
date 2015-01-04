@@ -2,6 +2,11 @@
 
 class PostController extends \BaseController {
 
+	public function __construct() {
+		parent::__construct();
+
+		$this->beforeFilter('auth', ['except' => ['getIndex']]);
+	}
 	/**
 	 * Display a listing of the resource.
 	 * GET /post/index
@@ -10,13 +15,9 @@ class PostController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-		$posts = Post::with('Author')->orderBy('id', 'DESC')->get();
+		$posts = Post::all();
+		
 		return View::make('index')->with('posts', $posts);
-	}
-
-	public function getAdmin()
-	{
-		return View::make('add_post');
 	}
 
 	public function addPost()
@@ -39,9 +40,8 @@ class PostController extends \BaseController {
 	 */
 	public function showPost(Post $post)
 	{
-		$comments = $post->comments()->where('approved', '=', 1)->get();
-		$this->layout->title = $post->title;
-		$this->layout->main = View::make('post.index')->nest('content', 'post.show', compact('post', 'comments'));
+		
+		return View::make('admin.posts.{id}');
 
 	}
 
@@ -53,8 +53,8 @@ class PostController extends \BaseController {
 	 */
 	public function createPost()
 	{
-		$this->layout->title = 'Create New Post';
-		$this->layout->main = View::make('post.create')->nest('content', 'post.create');
+		
+		return View::make('admin.posts.create');
 	}
 
 	/**
@@ -66,8 +66,8 @@ class PostController extends \BaseController {
 	 */
 	public function editPost(Post $post)
 	{
-		$this->layout->title = 'New Post';
-		$this->layout->main = View::make('post.edit')->nest('content', 'post.edit', compact('post'));	
+		
+		return View::make('admin.posts.edit');	
 	}
 
 	/**
@@ -79,8 +79,8 @@ class PostController extends \BaseController {
 	 */
 	public function destroyPost(Post $post)
 	{
-		$post->delete();
-		return Redirect::route('post.index')->with('success', 'Post successfully deleted');
+		
+		return Redirect::route('post.index')->with('success', 'Post deleted');
 	}
 
 	/**
@@ -100,12 +100,12 @@ class PostController extends \BaseController {
 			'title' => 'required',
 			'content' => 'required'
 		];
-		$valid = Validator::make($data, $rules);
-		if($valid->passes())
+		$validator = Validator::make($data, $rules);
+		if($validator->passes())
 		{
 			$post = new Post($post);
 			$post = save();
-			return Redirect::to('admin.index')->with('success', 'Post sucessfully saved');
+			return Redirect::to('admin.index')->with('success', 'Post saved');
 		}
 		else
 		{

@@ -1,48 +1,49 @@
-@section('header')
+@section('nav')
 <!-- Navigation -->
-@if(Session::has('navError'))
-    <div class="center-fix" id="info-bar">
-        <div class="center-content">
-        {{ Session::get('topError') }}
-        </div>
-    </div>
-@endif
 
-
-<div class="uk-grid nav-container" data-uk-grid-margin>
-    <div class="uk-width-medium-1-3 uk-width-small-1-1 uk-container-center">
-        <a><img class="nav-brand" src="packages/img/wla_logo_full.png" width="140px" height="auto"   /></a>
+<div class = "uk-container uk-container-nav">
+<div class="uk-grid" data-uk-grid-margin>
+    <div class="uk-width-medium-1-4 uk-width-small-1-1">
+        <a><img class="nav-brand" src="packages/img/wla_logo.png" width="125px" height="auto"   /></a>
         <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" style="" data-uk-offcanvas=""></a>      
     </div>
-    @if(!Sentry::check())
-    <div class="uk-width-medium-2-3 kc-margin" id="login">
+    <div class="uk-width-medium-3-4 kc-margin">
         <nav class="uk-hidden-small">
             <ul class="uk-nav">
-            {{ Form::open(['route' => 'postLogin']) }}
-            {{ Form::email('email', Input::old('email'), ['placeholder' => 'Email Address']) }}
-            {{ Form::password('password', ['placeholder' => 'Password']) }}
-            {{ Form::submit('Login') }}
-            {{ Form::close() }}
+                <form class="uk-form">
+                @if(Auth::check())
+                    <li>Welcome back</li>
+                                
+                    <li><a href="pages.logout">Log Out {{ Auth::user()->email; }}</a></li>
+                    <li><a href='admin.index'>Dashboard</a></li>
+                    <ul>
+                        <li><a href='admin.blog.index'>Blog</a></li>
+                        <ul>
+                            <li><a href='admin.blog.create'>Create Post</a></li>
+                        </ul>
+                        <li><a href='admin.projects.index'>Projects</a></li>
+                    </ul>
 
-            {{ HTML::link('signup_form', 'Register', [], ['class' => 'button']) }}
+                    {{ HTML::link('signup', 'Register') }}
+                @else
+                    
+                    <div class="uk-form-group">
+                    {{ Form::open(['url' => 'login', 'method' => 'GET']) }}
+                        {{ Form::email('email', Input::old('email'), ['placeholder' => 'Email Address']) }}
+                        {{ Form::password('password', ['placeholder' => 'Password']) }}
+                        {{ Form::submit('Login', ['class' => 'uk-button']) }}
+                    {{ Form::close() }}
+                    </div>
+                    
+                @endif
+                </form>
             </ul>
         </nav>
+        
     </div>
 
-    @else
-    <div class="uk-width-medium-2-3 kc-margin" id="login">
-        <nav class="uk-hidden-small">
-            <ul class="uk-nav" id="user_block">
-                <li>Welcome back</li>
-                {{ HTML::link('#', Sentry::getUser()->last_name) }}
-            </ul>
-            <ul class="uk-nav" id="logout">
-                {{ HTML::linkRoute('logout', 'Logout', ['class' => 'button'])}}
-            </ul>
-        </nav>
-    </div>
-
-   </div>
 </div>
+</div>
+
 
 @show

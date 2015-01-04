@@ -12,11 +12,21 @@
 
 {{ HTML::style('packages/uikit/css/style.css') }}
 {{ HTML::style('packages/uikit/css/uikit.gradient.min.css') }}
+{{ HTML::style('packages/uikit/css/components/form-advanced.gradient.min.css') }}
 
-{{ HTML::style('packages/uikit/css/uikit.css') }}
+
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script type="text/javascript" src="packages/uikit/js/uikit.min.js"></script>
+
+<script type="text/javascript" src="js/form-password.js"></script>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+
+
 
 
 @show

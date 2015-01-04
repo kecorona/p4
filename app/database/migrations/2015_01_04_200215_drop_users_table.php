@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class DropAuthorIdFromPostsTable extends Migration {
+class DropUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,7 @@ class DropAuthorIdFromPostsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('posts', function($table)
-		{
-			$table->dropColumn('author_id');
-		});
+		Schema::drop('users');
 	}
 
 
@@ -26,7 +23,11 @@ class DropAuthorIdFromPostsTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::create('users', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->timestamps();
+		});
 	}
 
 }

@@ -11,26 +11,35 @@
 |
 */
 
-# User Routes
-Route::get('create', function()
-{
-    $user = Sentry::register([
-        'email'     => 'kvonnegut@wearsunscreen.com',
-        'password'  => Hash::make('secret'),
-        'first_name'=> 'Kurt',
-        'last_name' => 'Vonnegut',
-    ]);
-
-    return 'Admin User created (ID#: '.$user->id;
-});
-
+Route::any('/', array('as' => 'index', 'uses' => 'PostController@getIndex'));
 // Auth resources
+
+
+Route::get('pages.signup', 'UserController@getSignup');
+Route::post('pages.signup', 'UserController@postSignup');
+
+Route::get('login', 'UserController@getLogin');
+Route::post('login', 'UserController@postLogin');
+
+Route::get('logout', 'UserController@getLogout');
+
+
+
+/*
 Route::get('login', ['as'=>'login', 'uses'=>'AuthController@getLogin']);
 Route::post('login', ['as' => 'login', 'uses' => 'AuthController@postLogin']);
 Route::get('logout', ['as' => 'logout', 'before' => 'user', 'uses' => 'AuthController@getLogout']);
 
-// Blog resources
-Route::get('/', array('as' => 'index', 'uses' => 'PostController@getIndex'));
+Route::group(array('before' => 'auth'), function(){
+
+    Route::get('admin.index', ['as'=>'admin', 'uses'=>'AdminController@index']);
+    Route::get('pages.logout',['as' => 'logout', 'uses' => 'AuthController@getLogout']);
+    Route::resource('posts', "PostController");
+
+
+
+
+
 
 
 Route::group(array('prefix' => 'api', 'before' => 'auth.token'), function() {
@@ -40,3 +49,5 @@ Route::group(array('prefix' => 'api', 'before' => 'auth.token'), function() {
       });
 
 });
+*/
+

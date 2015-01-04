@@ -13,7 +13,6 @@
 /*
 /* Model Bindings */
 Route::model('post', 'Post');
-Route::model('comment', 'Comment');
 
 Route::controller('index', 'IndexController');
 Route::controller('users', 'UserController');
@@ -167,5 +166,83 @@ Route::group(['before' => 'auth'], function() {
 	}
 });
 
+
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the Closure to execute when that URI is requested.
+|
+*/
+
+Route::controller('index', 'IndexController');
+
+Route::get('/', 'PagesController@getIndex');
+
+// Auth resources
+Route::get('pages.signup', 'AuthController@getSignup');
+Route::post('pages.signup', 'AuthController@postSignup');
+
+Route::get('pages.login', 'AuthController@getLogin');
+Route::post('pages.login', 'AuthController@postLogin');
+
+Route::get('pages.logout', 'AuthController@getLogout');
+
+// Admin Resources
+Route::group(['prefix' => 'admin'], function () {
+    
+    Route::get('blog.index', ['as' => 'blog', 'uses' => 'BlogController@getIndex']);
+
+    Route::get('blog.create', 'BlogController@getCreate');
+    Route::post('blog.create', 'BlogController@postCreate');
+
+    Route::get('blog.edit.{id}', 'BlogController@getEdit');
+    Route::post('blog.edit', 'BlogController@postEdit');
+
+    Route::post('blog.destroy', 'BlogController@postDestroy');
+
+});
+
+
+
+
+
+
+//Blog Resources
+
+
+
+/*
+Route::get('login', ['as'=>'login', 'uses'=>'AuthController@getLogin']);
+Route::post('login', ['as' => 'login', 'uses' => 'AuthController@postLogin']);
+Route::get('logout', ['as' => 'logout', 'before' => 'user', 'uses' => 'AuthController@getLogout']);
+
+Route::group(array('before' => 'auth'), function(){
+
+    Route::get('admin.index', ['as'=>'admin', 'uses'=>'AdminController@index']);
+    Route::get('pages.logout',['as' => 'logout', 'uses' => 'AuthController@getLogout']);
+    Route::resource('posts', "PostController");
+
+
+
+
+
+// Blog resources
+
+
+
+Route::group(array('prefix' => 'api', 'before' => 'auth.token'), function() {
+
+      Route::get('/', function() {
+        return "Protected resource";
+      });
+
+});
+*/
 
 

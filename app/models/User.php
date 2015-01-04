@@ -5,7 +5,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Cartalyst\Sentry\Users\Eloquent\User {
+class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
@@ -23,19 +23,6 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
-	protected $guarded = array('id');
-
-	protected $fillable = array('email', 'password', 'password_confirm', 'first_name', 'last_name');
-
-	public static $rules = array(
-			'email' => 'required|email|exists:users,email',
-			'password' => 'required|min:7'
-	);
-
-	public function __construct()
-	{
-	    $this->setHasher(new \Cartalyst\Sentry\Hashing\NativeHasher);
-	}
 
 	public function getAuthIdentifier() {
 		return $this->getKey();
@@ -54,7 +41,7 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	}
 
 	public function getRememberTokenName() {
-		return "remember_token";
+		return 'remember_token';
 	}
 
 	public function getReminderEmail() {
@@ -63,6 +50,6 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 
 	public function posts()
 	{
-		return $this-has_many('Post');
+		return $this->has_many('Post');
 	}
 }
