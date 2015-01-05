@@ -10,7 +10,6 @@
     <div class="uk-width-medium-3-4 kc-margin">
         <nav class="uk-hidden-small">
             <ul class="uk-nav">
-                <form class="uk-form">
                 @if(Auth::check())
                     <li>Welcome back</li>
                                 
@@ -25,17 +24,23 @@
                     </ul>
 
                 @else
-                    
-                    <div class="uk-form-group">
+                <form class="uk-form">
+                     
                     {{ Form::open(['url' => 'login', 'method' => 'GET']) }}
+                    <div class="uk-form-row">
+
                         {{ Form::email('email', Input::old('email'), ['placeholder' => 'Email Address']) }}
                         {{ Form::password('password', ['placeholder' => 'Password']) }}
-                        {{ Form::submit('Login', ['class' => 'uk-button']) }}
+                        {{ Form::submit('Login', ['class' => 'uk-button uk-button-primary']) }}
+                        {{ HTML::link('users.register', 'Register', ['class' => 'uk-button uk-button-primary']) }}
                     {{ Form::close() }}
+
+                    
                     </div>
                     
+
+                </form>                    
                 @endif
-                </form>
             </ul>
         </nav>
         

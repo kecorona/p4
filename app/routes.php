@@ -20,11 +20,11 @@ Route::get('/', function()
 // Auth resources
 
 
-Route::get('register', 'AuthController@getRegistration');
-Route::post('register', 'AuthController@postRegistration');
+Route::get('users.register', 'AuthController@getRegistration');
+Route::post('users.register', 'AuthController@postRegistration');
 
-Route::get('login', 'AuthController@getLogin');
-Route::post('login', 'AuthController@postLogin');
+Route::get('users.login', 'AuthController@getLogin');
+Route::post('users.login', 'AuthController@postLogin');
 
 Route::get('logout', 'UserController@getLogout');
 

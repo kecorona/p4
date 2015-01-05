@@ -8,8 +8,8 @@
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-2">
 			<div class="uk-panel uk-panel-box uk-panel-secondary">
-				<h3 class="uk-panel-title">Panel 1</h3>
-				<a href="{{ action('PostController@createPost') }}" class="btn btn-info">Create New Post</a>
+				<h3 class="uk-panel-title">Blog</h3>
+				<a href="{{ action('PostController@create') }}" class="uk-button uk-button-info">Posts</a>
 			
 				<table class="uk-table">
 				<thead>

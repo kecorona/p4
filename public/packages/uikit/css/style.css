@@ -92,15 +92,22 @@ textarea {
 
 .uk-nav li a{
 	padding-right: 15px;
-  margin-top:75px;
- 
+  margin-top:50px;
+}
+
+.kc-link {
+  margin-left:20px;
+  text-transform: uppercase;
+  color:#E12C5F;;
+}
+.nav-bottom {
+  float:right;
 }
 
 .uk-nav li a {
 	font-family: 'AvenirNextLTPro-MediumCn';
 	text-transform: uppercase;
 	color: #E12C5F;
-	font-size:1.5em;
 }
 
 .uk-nav li a:hover,
@@ -111,6 +118,8 @@ textarea {
 	color:#E12C5F;
 }
 
+
+
 .uk-list li {
   padding-top:5px;
   padding-bottom: 5px
@@ -118,7 +127,6 @@ textarea {
 
 .uk-list li a {
   color:#29abe0 !important;
-  font-size: 1.1em;
 }
 
 
@@ -181,7 +189,7 @@ textarea {
 }
 .uk-form {
 	text-align:left;
-  font-size: 1.2em;
+  font-family:'AvenirNextLTPro-MediumCn';
 }
 
 .uk-form input[type=checkbox], .uk-form input[type=radio] {

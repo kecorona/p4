@@ -7,12 +7,13 @@
 
     	<form class="uk-form uk-form-horizontal">
                     
-		{{ Form::open(array('url' => 'login')) }}
+		{{ Form::open(array('url' => 'users.login')) }}
 		@if($errors->any())
 			<div class="uk-alert uk-alert-danger">
 				<a href="#" class="uk-close" uk-data-dismiss="uk-alert">&times;</a>
 				{{ implode('', $errors->all('<li class="uk-error">:message</li>')) }}
 			</div>
+		@endif
 
 			<div class="uk-form-row">
 
@@ -29,7 +30,6 @@
 				{{ Form::submit('login', ['class' => 'uk-width-1-1 uk-button uk-button-primary uk-button-large']) }}
 				{{ HTML::link('/', 'Nevermind', ['class' => 'uk-width-1-1 uk-button uk-button-danger uk-button-large']) }}
 			</div>
-			
 		{{ Form::close() }}
 		</form>
 	</div>

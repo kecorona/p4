@@ -1,42 +1,43 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="uk-vertical-align uk-text-center uk-height-1-1">
+    <div class="uk-vertical-align-middle" style="width: 500px;">
+    	<img class="uk-margin-bottom" width="140" height="120" src="wla_logo" />
 
-<h1>Register</h1>
-<form class="uk-form" uk-data-margin>
-{{ Form::open(array('url' => 'register')) }}
-	@if($errors->any())
-		<div class="uk-alert uk-alert-danger">
-			<a href="#" class="uk-close" uk-data-dismiss="uk-alert">&times;</a>
-			{{ implode('', $errors->all('<li class="uk-error">:message</li>')) }}
+    	<form class="uk-form uk-form-horizontal">
+                    
+		{{ Form::open(array('url' => 'users.register')) }}
+		@if($errors->any())
+		
+			<div class="uk-alert uk-alert-danger">
+				<a href="#" class="uk-close" uk-data-dismiss="uk-alert">&times;</a>
+				{{ implode('', $errors->all('<li class="uk-error">:message</li>')) }}
+			</div>
+		@endif
+		<div class="uk-form-group">
+			<div class="uk-form-row">
+				{{ Form::text('first_name', '', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'First Name']) }}
+			</div>
+			<div class="uk-form-row">
+				{{ Form::text('last_name', '', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'Last Name']) }}
+			</div>
+			<div class="uk-form-row">
+				{{ Form::email('email', '', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'Email Address']) }}
+			</div>
+			<div class="uk-form-row">
+				{{ Form::password('password', '', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'Password']) }}
+			</div>
+			<div class="uk-form-row">
+			{{ Form::submit('Submit', ['class' => 'uk-button uk-button-primary']) }}
+			</div>
+			
 		</div>
-	@endif
-	<div class="uk-form-group">
-		<li>
-			{{ Form::label('first_name', 'First Name:') }}
-			{{ Form::text('first_name') }}
-		</li>
-		<li>
-			{{ Form::label('last_name', 'Last Name:') }}
-			{{ Form::text('last_name') }}
-		</li>
-
-		<li>
-			{{ Form::label('password', 'Password:') }}
-			{{ Form::password('password') }}
-		</li>
-		<li>
-			{{ Form::label('email', 'Email:') }}
-			{{ Form::email('email') }}
-		</li>
-	</div>
-	<div class="uk-form-row">
-		<li>
-			{{ Form::submit('Submit', array('class' => 'button')) }}
-		</li>
-	</div>
+		
 
 {{ Form::close() }}
 </form>
+</div>
+</div>
 
 @stop

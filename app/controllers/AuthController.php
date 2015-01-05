@@ -2,6 +2,10 @@
 
 class AuthController extends BaseController {
 
+	public function __construct() {
+		parent::__construct();
+	}
+	
 	public function getRegistration()
 	{
 		return View::make('users.register');
