@@ -6,8 +6,8 @@ return array(
 			'driver' => 'mysql',
 			'host' 	 => 'localhost',
 			'database' => 'wla',
-			'username' => 'root',
-			'password' => '',
+			'username' => 'admin',
+			'password' => 'Sw0rdf!sh',
 		),
 	),
 );

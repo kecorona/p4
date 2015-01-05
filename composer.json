@@ -8,11 +8,9 @@
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-ide-helper": "~1.11",
 		"paste/pre": "dev-master",
-		"laracasts/utilities": "~1.0"
+		"laracasts/utilities": "~1.0",
+		 "way/generators": "dev-master"
 		
-	},
-	"require-dev": {
-	    "way/generators": "~2.0"
 	},
 	"autoload": {
 		"classmap": [
