@@ -1,11 +1,13 @@
 <?php
 
-class AuthController extends BaseController {
+class AuthController extends \BaseController {
 
 	public function __construct() {
 		parent::__construct();
+
+		$this->beforeFilter('guest', ['only' => ['getLogin', 'getRegistration']]);
 	}
-	
+
 	public function getRegistration()
 	{
 		return View::make('users.register');
@@ -22,13 +24,17 @@ class AuthController extends BaseController {
 			$user = new User;
 			$user->first_name = Input::get('first_name');
 			$user->last_name = Input::get('last_name');
-			$user->email = Hash::make(Input::get('password'));
-			$user->save();
-
-			return Redirect::to('login');
+			$user->email = Input::get('email');
+			$user->password = Hash::make(Input::get('password'));
+			
+			try {
+				$user->save();
+			} catch(Exception $e) {
+				return Redirect::to('register')->withInput();
+			}
 		}
-		return Redirect::to('register')->withErrors($validator)
-									   ->withInput();
+		return Redirect::to('register')->withInput();
+									   ->withErrors($validator);
 		
 	}
 
@@ -61,8 +67,7 @@ class AuthController extends BaseController {
 				return Redirect::to('login');
 			}
 		}
-		return Redirect::to('login')->withErrors($validator)
-									->withInput();
+		return Redirect::to('login')->withErrors($validator);
 	}
 
 	public function logout()

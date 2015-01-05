@@ -2,8 +2,7 @@
 
 @section('content')
 <div class="uk-vertical-align uk-text-center uk-height-1-1">
-    <div class="uk-vertical-align-middle" style="width: 500px;">
-    	<img class="uk-margin-bottom" width="140" height="120" src="wla_logo" />
+    <div class="uk-vertical-align-middle">
 
     	<form class="uk-form uk-form-horizontal">
                     
@@ -14,22 +13,24 @@
 				{{ implode('', $errors->all('<li class="uk-error">:message</li>')) }}
 			</div>
 		@endif
+			<fieldset data-uk-margin>
+				<legend>Login</legend>
+				<div class="uk-form-row">
 
-			<div class="uk-form-row">
+					{{ Form::email('email', '', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'Email']) }}
+				</div>
 
-				{{ Form::email('email', '', ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'Email']) }}
-			</div>
+				<div class="uk-form-row">
 
-			<div class="uk-form-row">
+					{{ Form::password('password',  ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'Password']) }}
 
-				{{ Form::password('password',  ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'Password']) }}
-
-			</div>
-			<hr>
-			<div class="uk-form-row">
-				{{ Form::submit('login', ['class' => 'uk-width-1-1 uk-button uk-button-primary uk-button-large']) }}
-				{{ HTML::link('/', 'Nevermind', ['class' => 'uk-width-1-1 uk-button uk-button-danger uk-button-large']) }}
-			</div>
+				</div>
+				<hr>
+				<div class="uk-form-row">
+					{{ Form::submit('login', ['class' => 'uk-width-1-1 uk-button uk-button-primary uk-button-large']) }}
+					{{ HTML::link('/', 'Nevermind', ['class' => 'uk-width-1-1 uk-button uk-button-danger uk-button-large']) }}
+				</div>
+			</fieldset>
 		{{ Form::close() }}
 		</form>
 	</div>

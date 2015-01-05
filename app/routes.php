@@ -11,64 +11,54 @@
 |
 */
 
+Route::get('/classes', function() {
+	echo Paste\Pre::render(get_declared_classes(),'');
+});
+
+Route::resource('posts', 'PostController');
+
+Route::resource('users', 'AuthController');
+
 Route::get('/', function()
 {
 	$posts = Post::orderBy('created_at', 'DESC')->paginate(3);
 
-	return View::make('index')->with('posts', $posts);
+	return View::make('posts.index')->with('posts', $posts);
 });
 // Auth resources
 
 
-Route::get('users.register', 'AuthController@getRegistration');
-Route::post('users.register', 'AuthController@postRegistration');
+Route::get('register',
+[	
+	'as'	=> 'register', 
+	'uses'	=> 'AuthController@getRegistration'
+]);
 
-Route::get('users.login', 'AuthController@getLogin');
-Route::post('users.login', 'AuthController@postLogin');
+Route::post('register',
+[	
+	'as'	=> 'register',
+	'uses'	=> 'AuthController@postRegistration'
+]);
 
-Route::get('logout', 'UserController@getLogout');
+Route::get('login', 'AuthController@getLogin');
+Route::post('login', 'AuthController@postLogin');
 
-Route::get('blog/{slug}', function($slug){
+Route::get('logout', 'AuthController@getLogout');
+
+Route::get('posts.{slug}', function($slug){
+
 	$post = Post::where('slug', $slug)->first();
 
-	$date = $post->created_at;
-	setlocale(LC_TIME, 'America/New_York');
-	$date = $date->formatlocalized('%A %d %B %Y');
-
-	return View::make('posts.index')->with('post', $post)->with('date', $date);
+	return View::make('/')->with('post', $post);
 });
 
-Route::group(['before' => 'auth'], function(){
+Route::group(['prefix' => 'admin'], function(){
+	
+	Route::any('admin', 'AdminController@index');
+	
+	Route::controller('posts', 'PostController');
 
-	Route::get('admin', 'AdminController@index');
-	Route::get('logout', 'AuthController@logout');
-	Route::resource('posts', 'PostController');
-
+	
+	
 });
-
-/*
-Route::get('login', ['as'=>'login', 'uses'=>'AuthController@getLogin']);
-Route::post('login', ['as' => 'login', 'uses' => 'AuthController@postLogin']);
-Route::get('logout', ['as' => 'logout', 'before' => 'user', 'uses' => 'AuthController@getLogout']);
-
-Route::group(array('before' => 'auth'), function(){
-
-    Route::get('admin.index', ['as'=>'admin', 'uses'=>'AdminController@index']);
-    Route::get('pages.logout',['as' => 'logout', 'uses' => 'AuthController@getLogout']);
-    Route::resource('posts', "PostController");
-
-
-
-
-
-
-
-Route::group(array('prefix' => 'api', 'before' => 'auth.token'), function() {
-
-      Route::get('/', function() {
-        return "Protected resource";
-      });
-
-});
-*/
 

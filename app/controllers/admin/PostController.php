@@ -15,9 +15,8 @@ class PostController extends \BaseController {
 	 */
 	public function index()
 	{
-		$posts = Post::orderBy('created_at', 'DESC')->paginate(3);
-        return View::make('posts.index')->with('posts', $posts);
-
+		$posts = Post::orderBy('created_at', 'DESC');
+        return View::make('admin.posts.index')->with('posts', $posts);
 	}
 
 	/**

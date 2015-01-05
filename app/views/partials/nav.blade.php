@@ -11,36 +11,29 @@
         <nav class="uk-hidden-small">
             <ul class="uk-nav">
                 @if(Auth::check())
-                    <li>Welcome back</li>
-                                
-                    <li><a href="pages.logout">Log Out {{ Auth::user()->email }}</a></li>
-                    <li><a href='admin.index'>Dashboard</a></li>
-                    <ul>
-                        <li><a href='admin.blog.index'>Blog</a></li>
-                        <ul>
-                            <li><a href='admin.blog.create'>Create Post</a></li>
-                        </ul>
-                        <li><a href='admin.projects.index'>Projects</a></li>
-                    </ul>
-
+                    <li {{ (Request::is('/') ? ' class="uk-active"' : '') }}><a href="{{{ URL::route('logout') }}}">Logout</a></li>
                 @else
                 <form class="uk-form">
                      
-                    {{ Form::open(['url' => 'login', 'method' => 'GET']) }}
+                    {{ Form::open(['url' => 'login', 'action' => 'AuthController@getLogin' ]) }}
                     <div class="uk-form-row">
 
                         {{ Form::email('email', Input::old('email'), ['placeholder' => 'Email Address']) }}
                         {{ Form::password('password', ['placeholder' => 'Password']) }}
                         {{ Form::submit('Login', ['class' => 'uk-button uk-button-primary']) }}
-                        {{ HTML::link('users.register', 'Register', ['class' => 'uk-button uk-button-primary']) }}
+
+                        {{ HTML::link('register', 'Register', ['class' => 'uk-button uk-button-primary']) }}
+
+                        <li {{ (Request::is('users.login') ? ' class="uk-active"' : '') }}><a href="{{ URL::to('login') }}">Login</a></li>
+                        <li {{ (Request::is('users.register') ? ' class="uk-active"' : '') }}><a href="{{{ URL::to('register') }}}">Register</a></li>
                     {{ Form::close() }}
 
                     
                     </div>
                     
 
-                </form>                    
-                @endif
+                    </form>                    
+                    @endif
             </ul>
         </nav>
         
