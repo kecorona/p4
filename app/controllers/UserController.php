@@ -6,15 +6,15 @@ class UserController extends BaseController {
 		parent::__construct();
 
 		$this->beforeFilter('guest', [
-			'only' => ['getLogin', 'getSignup']
+			'only' => ['getLogin', 'getRegistration']
 		]);
 	}
 
-	public function getSignup() {
-		return View::make('pages.signup');
+	public function getRegistration() {
+		return View::make('users.register');
 	}
 
-	public function postSignup() {
+	public function postRegistration() {
 		$rules = [
 			'email' => 'required|email|unique:users,email',
 			'password' => 'required|min:6'
@@ -23,7 +23,7 @@ class UserController extends BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			return Redirect::to('pages.signup')->with('message', 'Registration failed, please refer to the following errors:')
+			return Redirect::to('users.register')->with('message', 'Registration failed, please refer to the following errors:')
 										 ->withInput()
 										 ->withErrors($validator);
 		}
@@ -35,7 +35,7 @@ class UserController extends BaseController {
 		try {
 			$user->save();
 		} catch(Exception $e) {
-			return Redirect::to('pages.signup')->with('message', 'Registration failed')
+			return Redirect::to('users.register')->with('message', 'Registration failed')
 											   ->withInput();
 		}
 
@@ -46,20 +46,17 @@ class UserController extends BaseController {
 	
 	public function getLogin()
 	{
-		return View::make('pages.login');
+		return View::make('users.login');
 	}
 
 	public function postLogin()
 	{
-       $credentials = [
-       		'email' => Input::get('email'),
-       		'password' => Input::get('password'
-       	)];
+       $credentials = Input::only('email', 'password');
 
        if(Auth::attempt($credentials)) {
        		return Redirect::to('admin.index');
        } else {
-       		return Redirect::to('login')->with('message', 'Login failed');
+       		return Redirect::to('users.login')->with('message', 'Login failed')
        									->withInput();
        }
     }

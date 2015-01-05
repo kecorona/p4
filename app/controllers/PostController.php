@@ -5,7 +5,7 @@ class PostController extends \BaseController {
 	public function __construct() {
 		parent::__construct();
 
-		$this->beforeFilter('auth', ['except' => ['getIndex']]);
+		$this->beforeFilter('auth', ['except' => ['index']]);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -13,104 +13,81 @@ class PostController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function getIndex()
+	public function index()
 	{
-		$posts = Post::all();
-		
-		return View::make('index')->with('posts', $posts);
-	}
-
-	public function addPost()
-	{
-		Post::create([
-			'title' => Input::get('title'),
-			'content' =>Input::get('content'),
-			'author_id' => Auth::user()->id
-		]);
-
-		return Redirect::route('index');
-	}
-
-	/**
-	 * Display the specified resource.
-	 * GET /post/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function showPost(Post $post)
-	{
-		
-		return View::make('admin.posts.{id}');
+		$posts = Post::orderBy('created_at', 'DESC')->paginate(3);
+        return View::make('posts.index')->with('posts', $posts);
 
 	}
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /post/create
 	 *
 	 * @return Response
 	 */
-	public function createPost()
+	public function create()
 	{
-		
 		return View::make('admin.posts.create');
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 * GET /post/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function editPost(Post $post)
-	{
-		
-		return View::make('admin.posts.edit');	
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /post/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroyPost(Post $post)
-	{
-		
-		return Redirect::route('post.index')->with('success', 'Post deleted');
-	}
-
-	/**
 	 * Store a newly created resource in storage.
-	 * POST /post
 	 *
 	 * @return Response
 	 */
-	public function storePost()
+	public function store()
 	{
-		$post = [
-			'title' => Input::get('title'),
-			'content' => Input::get('content'),
-			'slug' => Input::get('slug')
-		];
-		$rules = [
-			'title' => 'required',
-			'content' => 'required'
-		];
-		$validator = Validator::make($data, $rules);
-		if($validator->passes())
-		{
-			$post = new Post($post);
-			$post = save();
-			return Redirect::to('admin.index')->with('success', 'Post saved');
+		$input = Input::all();
+
+		$validator = Validator::make($input, Post::$rules);
+
+		if($validator->passes()) {
+
+			$post = new Post;
+			$post->title = Input::get('title');
+			$post->slug = Str::slug(Input::get('title'));
+			$post->content = Input::get('content');
+			$post->live = Input::get('live');
+			$post->author_id = Auth::user()->id;
+			$post->save();
+
+			return Redirect::route('admin.posts.index');
 		}
-		else
-		{
-			return Redirect::back()->withErrors($valid)->withInput();
-		}
+		return Redirect::back()->withErrors($validator)
+							   ->withInput();
+	}
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$post = Post::find($id);
+
+		$date = $post->created_at;
+		setlocale(LC_TIME, 'America/New_York');
+		$date = $date->formatlocalized('%A %d %B %Y');
+
+		return View::make('admin.posts.show')->with('post', $post)
+											 ->with('date', $date);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 * GET admin/posts/{id}/edit
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$post = Post::find($id);
+
+		if(!is_null($post))
+			return View::make('admin.posts.edit')->with('post', $post);
+		return Redirect::route('admin.posts.index');
 	}
 
 	/**
@@ -120,35 +97,30 @@ class PostController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function updatePost(Post $post)
+	public function update($id)
 	{
-		$data = [
-			'title' => Input::get('title'),
-			'content' => Input::get('content'),
-			'slug' => Input::get('slug')
-		];
-		$rules = [
-			'title' => 'required',
-			'content' => 'required'
-		];
+		$input = array_except(Input::all(), '_method');
 
-		$valid = Validator::male($data, $rules);
-		if($valid->passes())
-		{
-			$post->title = $data['title'];
-			$post->content = $data['content'];
-			$post->slug = $data['slug'];
+		$validator = Validator::make($input, Post::$rules);
 
-			if(count($post->getDirty()) > 0)
-			{
-				$post->save();
-				return Redirect::back()->with('success', 'Post successfully updated!');
-			}
-			else
-                return Redirect::back()->with('success','Nothing to update!');
-        }
-        else
-            return Redirect::back()->withErrors($valid)->withInput();
-    }
- 
+		if($validator->passes()) {
+			Post::find($id)->update($input);
+			return Redirect::route('admin.posts.index');
+		}
+		return Redirect::back()->withErrors($validator);
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /post/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		Post::find($id)->delete();
+
+		return Redirect::route('admin.posts.index')->with('success', 'Post deleted');
+	}
 }

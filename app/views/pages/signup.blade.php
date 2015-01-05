@@ -9,7 +9,7 @@
 			<div class="uk-form-row">
 				<h1 class="kc-form-title uk-text-contrast">Sign Up</h1>
 			</div>
-			{{ Form::open(array('route' => 'postSignupForm')) }}
+			{{ Form::open(['url' => 'pages.logout')) }}
 			<div class="uk-form-row">
 			{{ Form::text('first_name', Input::get('first_name'), ['class' => 'uk-width-1-1 uk-form-large', 'placeholder' => 'First Name']) }}
 			</div>

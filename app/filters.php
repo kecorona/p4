@@ -35,11 +35,7 @@ App::after(function($request, $response)
 Route::filter('auth', function()
 {
 	if(Auth::guest()) {
-		if(Request::ajax()) {
-			return Response::make('Access Denied', 401);
-		} else {
-			return Redirect::guest('login')->with('flash_message', 'Please login to proceed');
-		}
+		return Redirect::guest('login');
 	}
 });
 

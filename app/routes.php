@@ -11,19 +11,40 @@
 |
 */
 
-Route::any('/', array('as' => 'index', 'uses' => 'PostController@getIndex'));
+Route::get('/', function()
+{
+	$posts = Post::orderBy('created_at', 'DESC')->paginate(3);
+
+	return View::make('index')->with('posts', $posts);
+});
 // Auth resources
 
 
-Route::get('pages.signup', 'UserController@getSignup');
-Route::post('pages.signup', 'UserController@postSignup');
+Route::get('register', 'AuthController@getRegistration');
+Route::post('register', 'AuthController@postRegistration');
 
-Route::get('login', 'UserController@getLogin');
-Route::post('login', 'UserController@postLogin');
+Route::get('login', 'AuthController@getLogin');
+Route::post('login', 'AuthController@postLogin');
 
 Route::get('logout', 'UserController@getLogout');
 
+Route::get('blog/{slug}', function($slug){
+	$post = Post::where('slug', $slug)->first();
 
+	$date = $post->created_at;
+	setlocale(LC_TIME, 'America/New_York');
+	$date = $date->formatlocalized('%A %d %B %Y');
+
+	return View::make('posts.index')->with('post', $post)->with('date', $date);
+});
+
+Route::group(['before' => 'auth'], function(){
+
+	Route::get('admin', 'AdminController@index');
+	Route::get('logout', 'AuthController@logout');
+	Route::resource('posts', 'PostController');
+
+});
 
 /*
 Route::get('login', ['as'=>'login', 'uses'=>'AuthController@getLogin']);

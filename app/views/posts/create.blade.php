@@ -15,7 +15,7 @@
 				<thead>
 					<tr>
 						<th>Title</th>
-						<th>Last Name</th>
+						<th>Content</th>
 						<th>Email</th>
 					</tr>
 				</thead>

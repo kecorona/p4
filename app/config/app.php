@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://p4.kristincorona.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,8 +122,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 			'Way\Generators\GeneratorsServiceProvider',
-			'Cartalyst\Sentry\SentryServiceProvider',
 			'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+			'Laracasts\Utilities\UtilitiesServiceProvider',
 	),
 
 	/*
@@ -190,7 +190,8 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-		'Sentry' 			=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Pre'			  	=> 'Paste\Pre',
+
 
 	),
 

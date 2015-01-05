@@ -1,6 +1,6 @@
 <?php
 
-class Post extends \Eloquent {
+class Post extends Eloquent {
 	
 	protected $table = 'posts';
 
@@ -10,16 +10,14 @@ class Post extends \Eloquent {
 		'updated_at'
 	];
 
-	protected $fillable = ['title', 'content'];
+	public static $rules = [
+		'title' => 'required|unique:posts',
+		'content' => 'required'
+	];
 
-	public function getPost()
+	public function user()
 	{
-		return $this->post;
-	}
-
-	public function Author()
-	{
-		return $this->belongsTo('User', 'author_id');
+		return $this->belongsTo('User', 'user_id');
 	}
 
 }

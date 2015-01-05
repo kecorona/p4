@@ -62,7 +62,7 @@ return array(
 
 		'email' => 'emails/request',
 
-		'table' => 'token',
+		'table' => 'password_reminders',
 
 		'expire' => 60,
 

@@ -34,7 +34,7 @@ return array(
 			'password'  => '',
 			'key'       => '',
 			'keyphrase' => '',
-			'root'      => '/var/www',
+			'root'      => '/var/www/p4.kristincorona.com/p4/public',
 		),
 
 	),
@@ -52,7 +52,7 @@ return array(
 
 	'groups' => array(
 
-		'web' => array('production')
+		'db' => array('production')
 
 	),
 

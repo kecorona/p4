@@ -14,7 +14,7 @@
                 @if(Auth::check())
                     <li>Welcome back</li>
                                 
-                    <li><a href="pages.logout">Log Out {{ Auth::user()->email; }}</a></li>
+                    <li><a href="pages.logout">Log Out {{ Auth::user()->email }}</a></li>
                     <li><a href='admin.index'>Dashboard</a></li>
                     <ul>
                         <li><a href='admin.blog.index'>Blog</a></li>
@@ -24,7 +24,6 @@
                         <li><a href='admin.projects.index'>Projects</a></li>
                     </ul>
 
-                    {{ HTML::link('signup', 'Register') }}
                 @else
                     
                     <div class="uk-form-group">

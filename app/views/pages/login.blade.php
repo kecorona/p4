@@ -7,7 +7,7 @@
 
     	<form class="uk-form uk-form-horizontal">
                     
-		{{ Form::open(['url' => 'login']) }}
+		{{ Form::open(['url' => 'pages.login']) }}
 
 			<div class="uk-form-row">
 
